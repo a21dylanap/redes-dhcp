@@ -1,0 +1,40 @@
+services:
+  kea:
+    build: ./kea
+    container_name: kea
+    networks:
+      dhcp_lab:
+        ipv4_address: 192.168.130.2
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
+  cliente1:
+    build: ./cliente
+    container_name: client1
+    networks:
+      dhcp_lab:
+        ipv4_address: 192.168.130.3
+        mac_address: 02:42:ac:11:00:10  # dirección HW fija
+    cap_add:
+      - NET_ADMIN
+    command: >
+      sh -c "dhclient -v eth0 && sleep infinity"
+
+  cliente2:
+    build: ./cliente
+
+    networks:
+      dhcp_lab:
+        ipv4_address: 192.168.130.4
+    cap_add:
+      - NET_ADMIN
+    command: >
+      sh -c "dhclient -v eth0 && sleep infinity"
+
+networks:
+  dhcp_lab:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.130.0/24
