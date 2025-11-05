@@ -8,7 +8,7 @@ services:
     cap_add:
       - NET_ADMIN
     volumes:
-      - ./kea/kea-dhcp4.conf:/etc/kea/kea-dhcp4.conf
+      - ./kea/kea-dhcp4.conf.json:/etc/kea/kea-dhcp4.conf
 
   cliente1:
     build: ./cliente
