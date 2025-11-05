@@ -1,10 +1,11 @@
-FROM debian:12
+FROM debian:13
 
 RUN apt-get update && apt-get install -y \
         procps \
         iproute2 \
         iputils-ping \
         dnsutils \
+        tcpdump \
         rsyslog \
         kea-dhcp4-server \
         && rm -rf /var/lib/apt/lists/*
